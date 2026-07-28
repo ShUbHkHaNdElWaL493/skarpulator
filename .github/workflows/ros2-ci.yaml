@@ -1,0 +1,35 @@
+name: ROS2 CI
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'skarpulator_desktop_client/**'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'skarpulator_desktop_client/**'
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./skarpulator_desktop_client
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Build and run Docker container
+      run: docker compose up --build -d
+
+    - name: Run colcon tests inside container
+      run: docker exec -it skarpulator bash -c "
+          colcon test &&
+          colcon test-result --all
+        "
+
+    - name: Clean up container
+      if: always()
+      run: docker compose down
