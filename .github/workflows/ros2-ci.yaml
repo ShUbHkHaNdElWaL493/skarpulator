@@ -34,6 +34,7 @@ jobs:
       run: docker exec skarpulator bash -c "colcon test"
     
     - name: Check colcon test results inside container
+      if: always()
       run: docker exec skarpulator bash -c "colcon test-result --all --verbose"
 
     - name: Clean up container
