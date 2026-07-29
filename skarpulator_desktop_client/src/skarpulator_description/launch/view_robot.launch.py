@@ -5,44 +5,49 @@ from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
+
 def generate_launch_description():
-    
-    rviz_config = LaunchConfiguration("rviz_config")
+
+    rviz_config = LaunchConfiguration('rviz_config')
 
     rsp_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(PathJoinSubstitution([
-            FindPackageShare("skarpulator_description"),
-            "launch",
-            "rsp.launch.py"
+            FindPackageShare('skarpulator_description'),
+            'launch',
+            'rsp.launch.py'
         ])),
-        launch_arguments = {
-            "description_file" : PathJoinSubstitution([
-                FindPackageShare("skarpulator_description"),
-                "models",
-                "robot.urdf.xacro"
+        launch_arguments={
+            'description_file': PathJoinSubstitution([
+                FindPackageShare('skarpulator_description'),
+                'models',
+                'robot.urdf.xacro'
             ])
         }.items(),
     )
 
     rviz_node = Node(
-        package = "rviz2",
-        executable = "rviz2",
-        name = "rviz2",
-        output = "log",
-        arguments = ["-d", rviz_config]
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        output='log',
+        arguments=['-d', rviz_config]
     )
 
     joint_state_publisher_node = Node(
-        package = "joint_state_publisher",
-        executable = "joint_state_publisher",
-        name = "joint_state_publisher"
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        name='joint_state_publisher'
     )
 
     return LaunchDescription([
         DeclareLaunchArgument(
-            "rviz_config",
-            default_value = PathJoinSubstitution([FindPackageShare("skarpulator_description"), "rviz", "view.rviz"]),
-            description = "Rviz config file (absolute path) to use when launching rviz."
+            'rviz_config',
+            default_value=PathJoinSubstitution([
+                FindPackageShare('skarpulator_description'),
+                'rviz',
+                'view.rviz'
+            ]),
+            description='Rviz config file (absolute path) to use when launching rviz.'
         ),
         rsp_node,
         rviz_node,
