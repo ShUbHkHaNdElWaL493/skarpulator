@@ -20,7 +20,7 @@ jobs:
     
     steps:
     - name: Checkout repository
-      uses: actions/checkout
+      uses: actions/checkout@v6
 
     - name: Conditionally remove GPU requirements for CI
       run: |
