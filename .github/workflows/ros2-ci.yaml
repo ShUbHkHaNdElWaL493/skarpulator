@@ -33,7 +33,7 @@ jobs:
     - name: Run colcon tests inside container
       run: docker exec skarpulator bash -c "
           colcon test &&
-          colcon test-result --all
+          colcon test-result --all --verbose
         "
 
     - name: Clean up container
