@@ -9,6 +9,7 @@ on:
     branches: [ "main" ]
     paths:
       - 'skarpulator_desktop_client/**'
+  workflow_dispatch:
 
 jobs:
   build_and_test:
@@ -30,7 +31,7 @@ jobs:
       run: docker compose up --build -d
 
     - name: Run colcon tests inside container
-      run: docker exec -it skarpulator bash -c "
+      run: docker exec skarpulator bash -c "
           colcon test &&
           colcon test-result --all
         "
