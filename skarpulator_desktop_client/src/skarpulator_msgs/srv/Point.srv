@@ -1,0 +1,5 @@
+# Request
+float64[6] pose
+---
+# Response
+bool success
