@@ -18,8 +18,4 @@ RUN echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 RUN echo "source /skarpulator/install/setup.bash" >> ~/.bashrc
 RUN echo "export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:/opt/ros/jazzy/share" >> ~/.bashrc
 
-COPY ./entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
 CMD ["bash"]
