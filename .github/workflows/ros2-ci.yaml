@@ -21,6 +21,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Conditionally remove GPU requirements for CI
+      run: |
+        yq -i 'del(.services.skarpulator.deploy)' docker-compose.yaml
+        yq -i 'del(.services.skarpulator.privileged)' docker-compose.yaml
+
     - name: Build and run Docker container
       run: docker compose up --build -d
 
