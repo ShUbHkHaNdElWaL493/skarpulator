@@ -19,5 +19,3 @@ RUN echo "source /skarpulator/install/setup.bash" >> ~/.bashrc
 RUN echo "export GZ_SIM_RESOURCE_PATH=$GZ_SIM_RESOURCE_PATH:/opt/ros/jazzy/share" >> ~/.bashrc
 
 CMD ["bash"]
-
-# Random comment
