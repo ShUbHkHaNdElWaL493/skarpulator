@@ -3,12 +3,8 @@ name: ROS2 CI
 on:
   push:
     branches: [ "main", "dev" ]
-    paths:
-      - 'skarpulator_desktop_client/**'
   pull_request:
     branches: [ "main", "dev" ]
-    paths:
-      - 'skarpulator_desktop_client/**'
   workflow_dispatch:
 
 jobs:
