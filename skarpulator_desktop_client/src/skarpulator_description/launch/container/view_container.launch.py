@@ -1,7 +1,6 @@
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
-from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import Command, FindExecutable, LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
@@ -10,19 +9,30 @@ def generate_launch_description():
 
     rviz_config = LaunchConfiguration('rviz_config')
 
-    rsp_node = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(PathJoinSubstitution([
+    robot_description = Command([
+        PathJoinSubstitution([FindExecutable(name='xacro')]),
+        ' ',
+        PathJoinSubstitution([
             FindPackageShare('skarpulator_description'),
-            'launch',
-            'rsp.launch.py'
-        ])),
-        launch_arguments={
-            'description_file': PathJoinSubstitution([
-                FindPackageShare('skarpulator_description'),
-                'models',
-                'robot.urdf.xacro'
-            ])
-        }.items(),
+            'models',
+            'container.urdf.xacro'
+        ]),
+        ' ',
+        'origin_xyz:=',
+        '"0 0 0"',
+        ' ',
+        'origin_rpy:=',
+        '"0 0 0"',
+    ])
+
+    rsp_node = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        output='both',
+        parameters=[{
+            'use_sim_time': True,
+            'robot_description': robot_description
+        }]
     )
 
     rviz_node = Node(
