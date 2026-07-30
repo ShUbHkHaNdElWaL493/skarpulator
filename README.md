@@ -20,5 +20,16 @@ This is just a brief overview of how I am planning to develop the project.
 
 ---
 
+## Progress
+The following things have been done:
+1. Creating a working digital twin of the manipulator using ROS2 and gz sim.
+2. Launching the sim inside a container.
+The following things need to be done next:
+1. Connecting the container nodes with the base computer nodes.
+2. Creating a MoveIt config for the robot.
+3. Integrating the robot with MoveIt2.
+
+---
+
 ## Contributions
 If you want to contribute to this project, feel free to mail me.
