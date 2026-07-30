@@ -26,7 +26,8 @@ The following things have been done:
 2. Launching the sim inside a container.
 The following things need to be done next:
 1. Connecting the container nodes with the base computer nodes.
-2. Integrating the robot with MoveIt2.
+2. Creating a MoveIt config for the robot.
+3. Integrating the robot with MoveIt2.
 
 ---
 
