@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="container">
+
+  <xacro:arg name="origin_xyz" default="0 0 0"/>
+  <xacro:arg name="origin_rpy" default="0 0 0"/>
+
+  <link name="world"/>
+
+  <link name="container">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find skarpulator_description)/models/meshes/container.stl"/>
+      </geometry>
+      <material name="glass">
+        <color rgba="0.8 0.9 1.0 0.3"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find skarpulator_description)/models/meshes/container.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1"/>
+      <inertia
+        ixx="0.35445"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.35445"
+        iyz="0.0"
+        izz="0.7089"
+      />
+    </inertial>
+  </link>
+
+  <joint name="container_joint" type="fixed">
+    <origin xyz="$(arg origin_xyz)" rpy="$(arg origin_rpy)"/>
+    <parent link="world"/>
+    <child link="container"/>
+  </joint>
+
+</robot>
